@@ -8,7 +8,7 @@ import rigoImage from "../../img/rigo-baby.jpg";
 const Home = () => {
   return (
     <div className="text-center">
-      <Counter />
+      <Counter seconds={11} userAlert={8} />
     </div>
   );
 };
