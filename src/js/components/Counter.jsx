@@ -1,38 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
-import PropTypes from "prop-types";
 
-const Counter = ({ seconds = 0, userAlert = 0 }) => {
-  const [currentSeconds, setCurrentSeconds] = useState(seconds);
+const Counter = () => {
+  const [secods, setSeconds] = useState(0);
 
   const [formatedSeconds, setFormatedSeconds] = useState(["0", "0", "0", "0"]);
 
   useEffect(() => {
-    let descending = currentSeconds > 0;
-
     const interval = setInterval(() => {
-      setCurrentSeconds((prevSeconds) => {
-        if (descending) {
-          return (prevSeconds - 1) % 10000;
-        } else {
-          return (prevSeconds + 1) % 10000;
-        }
-      });
+      setSeconds((seconds) => (seconds + 1) % 10000);
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [seconds]);
+  });
 
   useEffect(() => {
-    if (currentSeconds >= 0) {
-      const digits = String(currentSeconds).padStart(4, "0").split("");
-      setFormatedSeconds(digits);
-      if (currentSeconds === userAlert) {
-        window.alert("Time is up!");
-      }
-    }
-  }, [currentSeconds]);
+    const digits = String(secods).padStart(4, "0").split("");
+    setFormatedSeconds(digits);
+  }, [secods]);
 
   return (
     <div
@@ -94,11 +80,6 @@ const Counter = ({ seconds = 0, userAlert = 0 }) => {
       </div>
     </div>
   );
-};
-
-Counter.propTypes = {
-  seconds: PropTypes.number,
-  userAlert: PropTypes.number,
 };
 
 export default Counter;
